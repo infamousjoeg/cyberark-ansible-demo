@@ -1,9 +1,16 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-
-  roles:
-    - role: cyberark-bizdev.password_lookup_plugin
+  become: true
+  become_method: sudo
+  become_user: root
+  
+  vars:
+    - ansible_become_pass: Cyberark1
 
   tasks:
-    - name: Blah
+    - name: Do Something as root - touch /root/cyberark-ansible-demo/IAMgROOT.txt
+      file:
+        path: /root/cyberark-ansible-demo/IAMgROOT.txt
+        state: touch
+    
