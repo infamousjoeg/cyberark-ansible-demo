@@ -1,0 +1,26 @@
+- !policy
+  id: ansible
+  annotations:
+    description: Ansible Demo policy
+    website: https://github.com/infamousjoeg/cyberark-ansible-demo
+  body:
+    - &secret-variables:
+        - !variable controllers/su-username
+        - !variable controllers/su-password
+
+    - !layer controllers
+
+    - !hostfactory
+      id: ansible_factory
+      layers:
+        - !layer controllers
+
+    - !permit
+      role: !group ansible-users
+      privileges: [ read, execute ]
+      resource: *secret-variables
+
+    - !permit
+      role: !group ansible-admins
+      privileges: [ update ]
+      resource: *secret-variables
