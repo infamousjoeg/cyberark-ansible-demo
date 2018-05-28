@@ -3,7 +3,23 @@
   gather_facts: no
 
   roles:
-    - role: cyberark-bizdev.password_lookup_plugin
-
+    - role: cyberark.conjur-host-identity
+      conjur_appliance_url: 'https://lxc02.cyberarkdemo.com/api'
+      conjur_account: 'demo'
+      conjur_host_factory_token: '{{ lookup("env", "CONJUR_HFTOKEN") }}'
+      conjur_host_name: 'ansible-controller'
+      conjur_ssl_certificate: '{{ lookup("file", "~/conjur.crt") }}'
+      conjur_validate_certs: true
+      
+  vars:
+    - su_user: '{{ lookup("conjur_variable", "ansible/controllers/su-username") }}'
+    - su_pass: '{{ lookup("conjur_variable", "ansible/controllers/su-password") }}'
+  
   tasks:
-    - name: Blah
+    - name: Output Superuser Username Securely Retrieved from CyberArk Conjur
+      debug:
+        var: su_user
+
+    - name: Output Superuser Password Securely Retrieved from CyberArk Conjur
+      debug:
+        var: su_pass
