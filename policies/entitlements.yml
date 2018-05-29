@@ -7,4 +7,4 @@
   role: !group ansible-users
   members:
     - !group ansible-admins
-    - !layer controllers
+    - !layer ansible/controllers
