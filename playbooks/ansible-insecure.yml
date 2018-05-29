@@ -2,7 +2,7 @@
   connection: local
   gather_facts: no
   become: true
-  become_method: sudo
+  become_method: su
   become_user: root
   
   vars:

@@ -2,18 +2,19 @@
   connection: local
   gather_facts: no
 
-  roles:
-    - role: cyberark-bizdev.password_lookup_plugin
-
-  vars:
-    - su_user: '{{ lookup("cyberarkpassword", { "appid": "Ansible_Demo", "Query": "Safe=Ansible Demo;Folder=Root;Object=ansible-demo_ansible-controller_root;Username=root", "output": "PassProps.Username" }) }}'
-    - su_pass: '{{ lookup("cyberarkpassword", { "appid": "Ansible_Demo", "Query": "Safe=Ansible Demo;Folder=Root;Object=ansible-demo_ansible-controller_root;Username=root", "output": "Password" }) }}'
-  
   tasks:
     - name: Output Superuser Username Securely Retrieved from CyberArk Conjur
       debug:
-        var: su_user
+        msg: '{{ item }}'
+      with_cyberarkpassword:
+        appid: 'Ansible-Demo'
+        query: 'safe=Ansible-Demo;folder=Root;object=ansible-demo_ansible-controller_root'
+        output: 'PassProps.UserName'
 
     - name: Output Superuser Password Securely Retrieved from CyberArk Conjur
       debug:
-        var: su_pass
+        msg: '{{ item }}'
+      with_cyberarkpassword:
+        appid: 'Ansible-Demo'
+        query: 'safe=Ansible-Demo;folder=Root;object=ansible-demo_ansible-controller_root'
+        output: 'Password'
