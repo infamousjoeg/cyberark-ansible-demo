@@ -2,8 +2,13 @@
   gather_facts: no
 
   tasks:
-    - name: Copy Conjur Certificate from Conjur Master to Ansible Controller
+    - name: Copy Conjur Certificate (CRT) from Conjur Master to Ansible Controller
       fetch:
         src: /home/cyberark/ca.crt
+        dest: /etc/conjur/
+        flat: yes
+    - name: Copy Conjur Certificate (PEM) from Conjur Master to Ansible Controller
+      fetch:
+        src: /home/cyberark/ca.pem
         dest: /etc/conjur/
         flat: yes
