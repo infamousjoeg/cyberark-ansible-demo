@@ -9,8 +9,14 @@
     - ansible_become_pass: Cyberark1
 
   tasks:
+    - name: Remove any pre-existing /root/cyberark-ansible-demo/IAMgROOT.txt
+      file:
+        path: /root/cyberark-ansible-demo/IAMgROOT.txt
+        state: absent
     - name: Do Something as root - touch /root/cyberark-ansible-demo/IAMgROOT.txt
       file:
         path: /root/cyberark-ansible-demo/IAMgROOT.txt
         state: touch
-    
+    - name: Stat /root/cyberark-ansible-demo/IAMgROOT.txt
+      stat:
+        path: /root/cyberark-ansible-demo/IAMgROOT.txt
