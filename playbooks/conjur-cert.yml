@@ -1,0 +1,9 @@
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Copy Conjur Certificate from Conjur Master to Ansible Controller
+      fetch:
+        src: /home/cyberark/ca.crt
+        dest: /etc/conjur/
+        flat: yes
