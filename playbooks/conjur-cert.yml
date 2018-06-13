@@ -8,11 +8,9 @@
         dest: /etc/conjur/
         flat: yes
         validate_checksum: no
-        fail_on_missing: no
     - name: Copy Conjur Certificate (PEM) from Conjur Master to Ansible Controller
       fetch:
         src: /home/cyberark/ca.pem
         dest: /etc/conjur/
         flat: yes
         validate_checksum: no
-        fail_on_missing: no
