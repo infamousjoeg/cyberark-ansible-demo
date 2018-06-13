@@ -7,6 +7,7 @@
       uri:
         url: https://lxc02.cyberarkdemo.com/health
         return_content: yes
+        client_cert: /home/cyberark/conjur-myorg.pem
       register: conjur_health
     - name: Report Conjur Master Health
       debug:
