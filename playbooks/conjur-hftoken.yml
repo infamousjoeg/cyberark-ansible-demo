@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Check Conjur Master Health 
+      uri:
+        url: https://lxc02.cyberarkdemo.com/health
+        return_content: yes
+      register: conjur_health
+    - name: Report Conjur Master Health
+      msg: {{ conjur_health }}
