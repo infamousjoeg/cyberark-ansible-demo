@@ -9,4 +9,5 @@
         return_content: yes
       register: conjur_health
     - name: Report Conjur Master Health
-      msg: "{{ conjur_health }}"
+      debug:
+        msg: '{{ conjur_health }}'
