@@ -1,0 +1,14 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Load Conjur Security Policy
+      command: conjur policy load --as-group security_admin policies/master-policy.yml
+    - name: Using Machine Identity, Generate Host Factory Token
+      command: conjur hostfactory tokens create --duration-minutes 10 ansible/ansible_factory
+      register: conjur_hftoken
+    - name: Set Host Factory Token to a Fact
+      set_fact:
+        conjur_hftoken: "{{ conjur_hftoken }}"
+        cacheable: yes

@@ -1,0 +1,38 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    conjur_baseuri: "https://lxc02.cyberarkdemo.com/api"
+
+  tasks:
+    - name: Load Conjur Security Policy
+      command: conjur policy load --as-group security_admin policies/master-policy.yml
+    - name: Register Ansible Controller Machine Identity
+      command: awk '/password/ { print $2 }' /etc/conjur/conjur.identity
+      no_log: yes
+      register: conjur_identity
+    - name: Fetch Conjur API Access Token
+      uri:
+        url: "{{ conjur_baseuri }}/authn/users/host%2fansible-controller/authenticate"
+        client_cert: "{{ lookup('file', '/etc/conjur/conjur-myorg.pem') }}"
+        validate_certs: yes
+        body_format: json
+        method: POST
+        return_content: yes
+      register: conjur_accesstoken
+    - name: Generate Conjur Host Factory Token
+      uri:
+        url: "{{ conjur_baseuri }}/host_factories/ansible%2Fansible_factory/tokens"
+        headers:
+          Authentication: "Token token=\"{{ conjur_accesstoken }}\""
+        client_cert: "{{ lookup('file', '/etc/conjur/conjur-myorg.pem') }}"
+        validate_certs: yes
+        body_format: json
+        method: POST
+        return_content: yes
+      register: conjur_hftoken
+    - name: Set Host Factory Token to a Fact
+      set_fact:
+        conjur_hftoken: "{{ conjur_hftoken }}"
+        cacheable: yes
