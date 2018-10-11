@@ -1,7 +1,0 @@
-- !group
-  id: ansible-admins
-  owner: !group security_admin
-
-- !group
-  id: ansible-users
-  owner: !group ansible-admins
