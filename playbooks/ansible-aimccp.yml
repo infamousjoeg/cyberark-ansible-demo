@@ -6,8 +6,8 @@
     - name: Credential Retrieval - Whitelisted IP & Client Certificate Auth
       cyberark_credential:
         api_base_url: "http://10.0.1.12"
-        client_cert: "{{ CYBERARK_CLIENT_CERT }}"
-        client_key: "{{ CYBERARK_PRIV_KEY }}"
+        client_cert: "{{ CLIENT_CERTIFICATE }}"
+        client_key: "{{ CLIENT_KEY }}"
         app_id: "Ansible"
         query: "Safe=Ansible-Test;UserName=admin"
         validate_certs: true
