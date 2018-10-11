@@ -10,7 +10,7 @@
         query: "Safe=Ansible-Test;UserName=admin"
         validate_certs: false
       register: result
-      no_log: false
+      no_log: true
 
 
     - name: Debug message
