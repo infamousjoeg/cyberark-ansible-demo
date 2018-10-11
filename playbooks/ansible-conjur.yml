@@ -1,27 +1,36 @@
-- import_playbook: conjur-hftoken.yml
+---
+  - hosts: localhost
+    connection: local
+    
+    tasks:
+      - name: Exchange API key for access token
+        uri:
+          url: "{{ ansible_env.CONJUR_APPLIANCE_URL }}/api/authn/users/host%2Ftower2/authenticate"
+          method: POST
+          timeout: 10
+          validate_certs: no
+          headers:
+            Content-Type: "text/plain"
+          body: "{{ ansible_env.CONJUR_AUTHN_API_KEY }}"
+          return_content: yes
+          status_code: 200
+          body_format: json
+        register: token_json
+      - set_fact: token="{{ token_json.content | b64encode | replace('\r\n', '') }}"
+      - debug:
+          msg: "{{ token }}"
 
-- hosts: localhost
-  connection: local
-  gather_facts: no
-
-  roles:
-    - role: cyberark.conjur-host-identity
-      conjur_appliance_url: "https://lxc02.cyberarkdemo.com/api"
-      conjur_account: "myorg"
-      conjur_host_factory_token: "{{ conjur_hftoken }}"
-      conjur_host_name: "ansible-controller"
-      conjur_ssl_certificate: "{{ lookup('file', '/etc/conjur/conjur.crt') }}"
-      conjur_validate_certs: yes
-      
-  vars:
-    - su_user: "{{ lookup('conjur_variable', 'ansible/controllers/su-username') }}"
-    - su_pass: "{{ lookup('conjur_variable', 'ansible/controllers/su-password') }}"
-  
-  tasks:
-    - name: Output Superuser Username Securely Retrieved from CyberArk Conjur
-      debug:
-        var: su_user
-
-    - name: Output Superuser Password Securely Retrieved from CyberArk Conjur
-      debug:
-        var: su_pass
+      - name: Use token to retrieve secret
+        uri:
+          url: "{{ansible_env.CONJUR_APPLIANCE_URL}}/api/variables/ansible%2Fdom_admin%2Fpassword/value"
+          method: GET
+          timeout: 10
+          validate_certs: no
+          headers:
+            Authorization: Token token="{{ token }}"
+            Content-Type: "application/json"
+          return_content: yes
+          status_code: 200      
+        register: variable_value
+      - debug:
+          msg: "{{ variable_value.content }}"
