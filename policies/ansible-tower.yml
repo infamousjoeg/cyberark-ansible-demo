@@ -1,6 +1,5 @@
 - !policy
-  id: ansible-tower/nodes
-  owner: !group /admins
+  id: nodes
   body:
     - &secret-variables
         - !variable db-password
