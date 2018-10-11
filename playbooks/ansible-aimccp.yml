@@ -10,7 +10,7 @@
         client_key: "{{ CYBERARK_PRIV_KEY }}"
         app_id: "Ansible"
         query: "Safe=Ansible-Test;UserName=admin"
-        validate_certs: false
+        validate_certs: true
       register: result
       no_log: true
 
