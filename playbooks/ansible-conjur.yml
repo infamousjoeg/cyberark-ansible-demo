@@ -5,7 +5,7 @@
     tasks:
       - name: Exchange API key for access token
         uri:
-          url: "{{ ansible_env.CONJUR_APPLIANCE_URL }}/api/authn/users/host%2Ftower2/authenticate"
+          url: "{{ ansible_env.CONJUR_APPLIANCE_URL }}/api/authn/users/host%2Fansible-tower%2Fnodes%2Ftower2/authenticate"
           method: POST
           timeout: 10
           validate_certs: no
@@ -22,7 +22,7 @@
 
       - name: Use token to retrieve secret
         uri:
-          url: "{{ansible_env.CONJUR_APPLIANCE_URL}}/api/variables/ansible%2Fdom_admin%2Fpassword/value"
+          url: "{{ansible_env.CONJUR_APPLIANCE_URL}}/api/variables/ansible-tower%2Fnodes%2Fdb-password/value"
           method: GET
           timeout: 10
           validate_certs: no
