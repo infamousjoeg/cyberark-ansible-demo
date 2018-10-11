@@ -8,6 +8,7 @@
         api_base_url: "http://10.0.1.12"
         app_id: "Ansible"
         query: "Safe=Ansible-Demo;UserName=admin"
+        validate_certs: false
       register: result
       no_log: false
 
