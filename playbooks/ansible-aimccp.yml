@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+
+  tasks:
+
+    - name: Credential Retrieval - Whitelisted IP & Client Certificate Auth
+      cyberark_credential:
+        api_base_url: "http://10.0.1.12"
+        client_cert: "{{ CYBERARK_CLIENT_CERT }}"
+        client_key: "{{ CYBERARK_PRIV_KEY }}"
+        app_id: "Ansible"
+        query: "Safe=Ansible-Test;UserName=admin"
+        validate_certs: false
+      register: result
+      no_log: true
+
+
+    - name: JSON Response from AIM CCP
+      debug: 
+        msg: "{{ result }}"
