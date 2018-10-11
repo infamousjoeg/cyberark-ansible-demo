@@ -9,7 +9,7 @@
         app_id: "Ansible"
         query: "Safe=Ansible-Demo;UserName=admin"
       register: "{{ result }}"
-      no_log: true
+      no_log: false
 
 
     - name: Debug message
