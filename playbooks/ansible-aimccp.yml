@@ -12,6 +12,7 @@
         query: "Safe=Ansible-Test;UserName=admin"
         validate_certs: false
       register: result
+      delegate_to: localhost
       no_log: false
 
 
