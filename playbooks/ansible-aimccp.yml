@@ -12,7 +12,7 @@
         query: "Safe=Ansible-Test;UserName=admin"
         validate_certs: true
       register: result
-      no_log: true
+      no_log: false
 
 
     - name: JSON Response from AIM CCP
