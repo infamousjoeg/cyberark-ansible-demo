@@ -15,4 +15,4 @@
 
     - name: Debug message
       debug: 
-        var: "{{ result }}"
+        msg: "{{ result }}"
