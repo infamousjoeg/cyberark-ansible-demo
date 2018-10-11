@@ -3,15 +3,15 @@
 
   tasks:
 
-  - name: credential retrieval basic
-    cyberark_credential:
-      api_base_url: "http://10.0.1.12"
-      app_id: "Ansible"
-      query: "Safe=Ansible-Demo;UserName=admin"
-    register: "{{ result }}"
-    no_log: true
+    - name: credential retrieval basic
+      cyberark_credential:
+        api_base_url: "http://10.0.1.12"
+        app_id: "Ansible"
+        query: "Safe=Ansible-Demo;UserName=admin"
+      register: "{{ result }}"
+      no_log: true
 
 
-  - name: Debug message
-    debug: 
-      var: "{{ result }}"
+    - name: Debug message
+      debug: 
+        var: "{{ result }}"
