@@ -1,0 +1,24 @@
+- !policy
+  id: ansible-tower/nodes
+  owner: !group /admins
+  body:
+    - &secret-variables
+        - !variable db-password
+
+    - !layer
+
+    - !host-factory
+      id: host-factory
+      layers:
+        - !layer
+        
+    - !host tower2
+    
+    - !grant
+      role: !layer
+      member: !host tower2
+
+    - !permit
+      role: !layer
+      privileges: [ read, execute ]
+      resource: *secret-variables
