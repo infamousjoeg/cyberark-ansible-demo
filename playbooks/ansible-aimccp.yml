@@ -5,7 +5,7 @@
 
     - name: Credential Retrieval - Whitelisted IP & Client Certificate Auth
       cyberark_credential:
-        api_base_url: "http://10.0.1.12"
+        api_base_url: "https://10.0.1.12"
         client_cert: "{{ ansible_env.CLIENT_CERTIFICATE }}"
         client_key: "{{ ansible_env.CLIENT_KEY }}"
         app_id: "Ansible"
