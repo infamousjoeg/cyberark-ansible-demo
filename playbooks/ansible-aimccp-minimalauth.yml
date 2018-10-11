@@ -3,7 +3,7 @@
 
   tasks:
 
-    - name: credential retrieval basic
+    - name: Credential Retrieval - Whitelisted IP Only
       cyberark_credential:
         api_base_url: "http://10.0.1.12"
         app_id: "Ansible"
@@ -13,6 +13,6 @@
       no_log: true
 
 
-    - name: Debug message
+    - name: JSON Response from AIM CCP
       debug: 
         msg: "{{ result }}"
