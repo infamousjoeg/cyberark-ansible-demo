@@ -22,7 +22,7 @@
 
       - name: Use token to retrieve secret
         uri:
-          url: "{{ansible_env.CONJUR_APPLIANCE_URL}}/secrets/cyberark/ansible-tower%2Fnodes%2Fdb-password?version=1"
+          url: "{{ansible_env.CONJUR_APPLIANCE_URL}}/secrets/cyberark/variable/ansible-tower/nodes/db-password?version=1"
           method: GET
           timeout: 10
           validate_certs: no
