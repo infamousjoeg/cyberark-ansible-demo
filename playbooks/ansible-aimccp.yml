@@ -10,7 +10,7 @@
         client_key: "{{ CLIENT_KEY }}"
         app_id: "Ansible"
         query: "Safe=Ansible-Test;UserName=admin"
-        validate_certs: true
+        validate_certs: false
       register: result
       no_log: false
 
